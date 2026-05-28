@@ -1,0 +1,1563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>AIBridge Holdings — Investor Deck 2026</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  /* Type scale — measured for slide projection, not web */
+  --type-eyebrow: 16px;
+  --type-small: 20px;
+  --type-body: 26px;
+  --type-lead: 30px;
+  --type-subtitle: 36px;
+  --type-title: 56px;
+  --type-display: 96px;
+  --type-mega: 140px;
+
+  /* Spacing */
+  --pad-x: 100px;
+  --pad-top: 88px;
+  --pad-bottom: 72px;
+  --gap-title: 40px;
+  --gap-item: 24px;
+
+  /* Color */
+  --bg-0: #060912;
+  --bg-1: #0A0E1B;
+  --bg-2: #0F1424;
+  --surface: rgba(255,255,255,0.025);
+  --surface-2: rgba(255,255,255,0.045);
+  --border: rgba(148,163,184,0.12);
+  --border-strong: rgba(148,163,184,0.22);
+
+  --text-0: #F8FAFC;
+  --text-1: #E2E8F0;
+  --text-2: #94A3B8;
+  --text-3: #64748B;
+  --text-4: #475569;
+
+  --cyan: #38BDF8;
+  --cyan-2: #0EA5E9;
+  --violet: #8B5CF6;
+  --violet-2: #A78BFA;
+  --green: #34D399;
+  --orange: #FB923C;
+  --rose: #F472B6;
+
+  --grad: linear-gradient(135deg, #38BDF8 0%, #8B5CF6 100%);
+  --grad-soft: linear-gradient(135deg, rgba(56,189,248,0.18) 0%, rgba(139,92,246,0.18) 100%);
+}
+
+html, body { margin: 0; padding: 0; background: #000; color: var(--text-1);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'ss01','cv11';
+  -webkit-font-smoothing: antialiased;
+}
+
+deck-stage:not(:defined) { visibility: hidden; }
+deck-stage { background: #000; }
+
+/* ---------- Slide canvas — clean, editorial, like a printed report ---------- */
+section.slide {
+  position: relative;
+  width: 1920px; height: 1080px;
+  background: #0A0E18;
+  color: var(--text-1);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Slide frame chrome — quiet, like a printed deck */
+.frame-top, .frame-bottom {
+  position: absolute; left: var(--pad-x); right: var(--pad-x);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-3);
+  letter-spacing: 0.22em; text-transform: uppercase;
+  z-index: 5;
+}
+.frame-top { top: 48px; }
+.frame-bottom { bottom: 48px; }
+.frame-top::after, .frame-bottom::after { content: none; }
+.frame-top .mark { display: flex; align-items: center; gap: 10px; color: var(--text-2); letter-spacing: 0.22em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; }
+.frame-top .mark .dot { display: none; }
+.frame-top .mark .name { font-weight: 500; color: var(--text-2); }
+.frame-top .mark .name b { color: var(--text-0); font-weight: 600; background: none; -webkit-background-clip: initial; }
+
+.frame-bottom .right { color: var(--text-3); }
+.frame-bottom .pg { color: var(--text-2); }
+
+/* Hairline divider running under frame-top and over frame-bottom — subtle print-deck rule */
+.frame-top, .frame-bottom {
+  padding-bottom: 16px;
+}
+.frame-top { border-bottom: 1px solid rgba(148,163,184,0.08); padding-bottom: 18px; }
+.frame-bottom { border-top: 1px solid rgba(148,163,184,0.08); padding-top: 18px; }
+
+/* Slide body wrapper */
+.body {
+  position: absolute;
+  left: var(--pad-x); right: var(--pad-x);
+  top: 132px; bottom: 118px;
+  display: flex; flex-direction: column;
+}
+
+/* Section eyebrow — small mono label, no decorative bar */
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--text-3);
+  display: inline-flex; align-items: center; gap: 12px;
+  font-weight: 500;
+}
+.eyebrow .ord { color: var(--cyan); }
+
+/* Titles */
+.title {
+  font-size: var(--type-title);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--text-0);
+  margin: 28px 0 0;
+  max-width: 1200px;
+}
+.title .grad, .grad {
+  background: var(--grad);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+.subtitle {
+  font-size: var(--type-subtitle);
+  font-weight: 400; line-height: 1.2; color: var(--text-2);
+  margin: 24px 0 0; max-width: 1100px; letter-spacing: -0.01em;
+}
+.lead {
+  font-size: var(--type-lead);
+  line-height: 1.35;
+  color: var(--text-1);
+  font-weight: 400; letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.kicker-row {
+  display: flex; align-items: center; gap: 28px; margin-top: 8px;
+}
+
+/* Cards — flat, editorial, no backdrop blur or gradient fill */
+.card {
+  position: relative;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 34px 32px;
+}
+.card .badge-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cyan);
+  display: inline-block;
+  padding-bottom: 18px;
+}
+.card h3 {
+  font-size: 30px; font-weight: 700; color: var(--text-0);
+  margin: 0; letter-spacing: -0.015em; line-height: 1.15;
+}
+.card p { font-size: 22px; line-height: 1.45; color: var(--text-2); margin: 18px 0 0; font-weight: 400; }
+
+/* Stat blocks — clean numerals, gradient reserved for accent */
+.stat-num {
+  font-size: var(--type-mega);
+  font-weight: 600; letter-spacing: -0.05em; line-height: 0.92;
+  color: var(--text-0);
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-3);
+  letter-spacing: 0.20em; text-transform: uppercase; margin-top: 14px;
+}
+
+/* Pill chips */
+.chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 20px; color: var(--text-1);
+  background: var(--surface);
+}
+.chip .dot-s { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
+
+/* Numbered badge — flat outline, print-deck style */
+.num-badge {
+  width: auto; height: auto; min-width: 0;
+  background: transparent;
+  color: var(--cyan); font-weight: 500; font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.22em;
+  flex-shrink: 0;
+  display: inline-block;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Connector arrows */
+.arrow {
+  color: var(--text-4); font-size: 28px; opacity: 0.6;
+}
+
+/* Tag / accent pill (small mono) */
+.tag-mono {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3);
+}
+
+/* ============== Slide-specific styles ============== */
+
+/* COVER — report-cover treatment */
+.cover .body { top: 132px; bottom: 118px; }
+.cover .left { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 1100px; }
+.cover .right { width: 660px; }
+.cover .layout { display: flex; gap: 80px; height: 100%; align-items: center; }
+.cover .deck-title {
+  font-size: 88px; font-weight: 500; letter-spacing: -0.035em; line-height: 1.04;
+  color: var(--text-0); margin: 40px 0 0;
+}
+.cover .deck-title .b { display: block; }
+.cover .deck-title .gradline { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 600; }
+.cover .tagline { font-size: 24px; line-height: 1.45; color: var(--text-2); margin-top: 40px; max-width: 720px; font-weight: 400; }
+.cover .meta {
+  margin-top: 64px;
+  display: grid; grid-template-columns: repeat(3, auto); gap: 64px;
+  align-items: start; padding-top: 32px;
+  border-top: 1px solid var(--border);
+  max-width: 720px;
+}
+.cover .meta dt { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-3); }
+.cover .meta dd { margin: 10px 0 0; font-size: 22px; color: var(--text-0); font-weight: 500; letter-spacing: -0.01em; }
+
+/* Orbital graphic — diagram, not decoration */
+.orbit {
+  position: relative; width: 720px; height: 720px;
+}
+.orbit svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.orbit .node {
+  position: absolute;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.orbit .node .iconbox {
+  width: 72px; height: 72px; border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background: rgba(15,20,36,0.9);
+  display: grid; place-items: center;
+  backdrop-filter: blur(8px);
+}
+.orbit .node .iconbox svg { position: static; width: 32px; height: 32px; }
+.orbit .node .lbl {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-2);
+}
+.orbit .center {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 96px; height: 96px; border-radius: 22px;
+  background: radial-gradient(circle at 30% 30%, rgba(56,189,248,0.4), rgba(139,92,246,0.4));
+  border: 1px solid rgba(56,189,248,0.5);
+  box-shadow: 0 0 60px rgba(56,189,248,0.35), 0 0 120px rgba(139,92,246,0.20);
+  display: grid; place-items: center;
+}
+
+/* 2-column body layout */
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; flex: 1; align-content: stretch; }
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; flex: 1; }
+.cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; flex: 1; }
+
+/* Section header header row */
+.header-row { display: flex; align-items: flex-end; justify-content: space-between; }
+.header-row .titleblock { max-width: 1100px; }
+
+/* Slide 2 — Human crisis */
+.crisis-anxiety {
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+/* Slide 6 — Solution flywheel */
+.flywheel {
+  text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.14em;
+  color: var(--text-3); margin-top: 32px;
+}
+.flywheel .b { color: var(--text-1); }
+.flywheel .sep { color: var(--cyan); margin: 0 14px; }
+
+/* Slide 8 — Archetypes */
+.arche-card { padding: 30px; height: 100%; display: flex; flex-direction: column; gap: 18px; border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+}
+.arche-card .acc-line { height: 2px; width: 60px; border-radius: 2px; }
+.arche-card .role-tag { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); }
+.arche-card h4 { margin: 4px 0 0; font-size: 28px; font-weight: 700; color: var(--text-0); letter-spacing: -0.015em; line-height: 1.15; }
+.arche-card .perk { font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+.arche-card .desc { color: var(--text-2); font-size: 20px; line-height: 1.5; margin-top: auto; }
+
+/* Slide 9 — Traction */
+.stat-tile {
+  border: 1px solid var(--border); border-radius: 6px; padding: 28px 32px;
+  background: transparent;
+  display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;
+}
+.stat-tile .big {
+  font-size: 84px; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--text-0);
+}
+.stat-tile .big.grad { color: var(--text-0); background: none; -webkit-background-clip: initial; }
+.stat-tile .cap { font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); margin-top: 14px; line-height: 1.5; }
+
+/* Slide 10 — Market funnel */
+.funnel { display: flex; flex-direction: column; gap: 14px; }
+.funnel .row {
+  border: 1px solid var(--border); border-radius: 6px; padding: 26px 36px;
+  display: grid; grid-template-columns: 120px 260px 1fr; gap: 36px; align-items: center;
+  background: transparent;
+}
+.funnel .row.s2 { margin: 0 60px; }
+.funnel .row.s3 { margin: 0 120px; }
+.funnel .tier { font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.18em; color: var(--cyan); }
+.funnel .amt { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-0); }
+.funnel .desc { font-size: 20px; color: var(--text-2); line-height: 1.45; }
+
+/* Slide 11 — Business model */
+.biz-card {
+  border: 1px solid var(--border); border-radius: 6px; padding: 30px;
+  display: flex; flex-direction: column; gap: 16px;
+  background: transparent;
+}
+.biz-card .name { font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); }
+.biz-card .amt { font-size: 40px; font-weight: 500; letter-spacing: -0.025em; line-height: 1; color: var(--text-0); }
+.biz-card .amt.grad { color: var(--text-0); background: none; -webkit-background-clip: initial; }
+.biz-card ul { margin: 0; padding: 0; list-style: none; }
+.biz-card ul li { padding: 12px 0; border-top: 1px solid var(--border); color: var(--text-2); font-size: 18px; font-weight: 400; }
+.biz-card ul li:first-child { border-top: 1px solid var(--border); }
+.biz-card .note { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--cyan); letter-spacing: 0.14em; text-transform: uppercase; margin-top: auto; }
+
+/* Slide 13 — Compete table */
+.compete {
+  border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+  background: transparent;
+}
+.compete .grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+}
+.compete .cell { padding: 22px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; font-size: 19px; color: var(--text-1); }
+.compete .head { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); background: rgba(255,255,255,0.015); }
+.compete .head.us { color: var(--cyan); }
+.compete .cell.feat { font-weight: 500; color: var(--text-0); }
+.compete .cell.dot { justify-content: center; }
+.compete .row:last-child .cell { border-bottom: none; }
+.compete .col-us { background: rgba(56,189,248,0.04); }
+.dot-yes { width: 14px; height: 14px; border-radius: 50%; background: var(--cyan); }
+.dot-no { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--text-4); }
+
+/* Slide 14 — Team */
+.team-card .role { font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); }
+.team-card .name { font-size: 36px; font-weight: 700; color: var(--text-0); margin-top: 8px; letter-spacing: -0.02em; }
+.team-card ul { padding: 0; list-style: none; margin: 24px 0 0; }
+.team-card ul li { padding: 10px 0; color: var(--text-2); font-size: 19px; line-height: 1.5; padding-left: 22px; position: relative; }
+.team-card ul li::before { content: ''; position: absolute; left: 0; top: 19px; width: 8px; height: 1px; background: var(--cyan); }
+
+/* Slide 15 — chart */
+.chart-wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; flex: 1; align-items: stretch; }
+.chart-svg { width: 100%; height: 100%; }
+.chart-grid line { stroke: rgba(148,163,184,0.10); stroke-dasharray: 2 4; }
+.chart-axis text { fill: var(--text-3); font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.14em; }
+.chart-axis text.amt { fill: var(--text-2); }
+.chart-bar { fill: url(#barGrad); transform-origin: bottom; }
+.chart-bar.b1 { animation: barGrow 1.1s cubic-bezier(.2,.7,.2,1) 0.05s; }
+.chart-bar.b2 { animation: barGrow 1.1s cubic-bezier(.2,.7,.2,1) 0.20s; }
+.chart-bar.b3 { animation: barGrow 1.1s cubic-bezier(.2,.7,.2,1) 0.35s; }
+@keyframes barGrow { from { transform: scaleY(0.02); } to { transform: scaleY(1); } }
+.chart-cap text { fill: var(--text-0); font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+
+.fin-cols { display: flex; flex-direction: column; gap: 18px; align-self: center; }
+.fin-row { display: grid; grid-template-columns: 110px 140px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--border); align-items: center; }
+.fin-row:last-child { border-bottom: 1px solid var(--border); }
+.fin-row .yr { font-family: 'JetBrains Mono', monospace; color: var(--text-3); letter-spacing: 0.18em; font-size: 16px; }
+.fin-row .num { font-size: 30px; font-weight: 700; color: var(--text-0); letter-spacing: -0.02em; }
+.fin-row .num.grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.fin-row .det { color: var(--text-2); font-size: 18px; line-height: 1.45; }
+
+/* Slide 16 — Ask */
+.ask-cell .lbl { font-size: 18px; color: var(--text-2); margin-top: 18px; line-height: 1.4; }
+.bar-track { height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; margin-top: 18px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--grad); border-radius: 3px; animation: barWidth 1s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes barWidth { from { width: 0 !important; } }
+
+/* Slide 18 — closing */
+.closing { display: flex; align-items: center; justify-content: center; }
+.closing .body { top: 0; bottom: 0; padding: var(--pad-top) var(--pad-x); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.closing .big {
+  font-size: 88px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.18; color: var(--text-0); max-width: 1400px; margin: 0;
+}
+.closing .big .g { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.closing .sub { font-size: 32px; color: var(--text-2); margin-top: 28px; max-width: 1100px; line-height: 1.4; font-weight: 400; letter-spacing: -0.01em; }
+.closing .foot { margin-top: 88px; font-family: 'JetBrains Mono', monospace; font-size: 16px; letter-spacing: 0.22em; color: var(--text-3); }
+
+/* Section divider style for some slides */
+.callout {
+  margin-top: auto;
+  border-top: 1px solid var(--border); padding-top: 24px;
+  font-family: 'JetBrains Mono', monospace; font-size: 16px;
+  color: var(--text-3); letter-spacing: 0.14em; text-transform: uppercase;
+}
+.callout b { color: var(--cyan); font-weight: 500; }
+
+/* Animation: subtle entrance — not gated, runs once on parse */
+.anim { opacity: 1; }
+.anim-2, .anim-3, .anim-4 { opacity: 1; }
+
+/* Counter animation hook (slide 9 stats) */
+.count-up { display: inline-block; }
+
+/* Floating dot animation for cover orbit */
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.06); } }
+.orbit .center { animation: pulse 3.6s ease-in-out infinite; }
+@keyframes drift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.orbit .node { animation: drift 5s ease-in-out infinite; }
+.orbit .node.n2 { animation-delay: -1.2s; }
+.orbit .node.n3 { animation-delay: -2.4s; }
+.orbit .node.n4 { animation-delay: -3.6s; }
+.orbit .node.n5 { animation-delay: -0.6s; }
+
+/* Connection path stroke draw */
+.orbit .link {
+  stroke-dasharray: 600; stroke-dashoffset: 600;
+  animation: drawLink 2.2s ease-out 0.3s both;
+}
+@keyframes drawLink { to { stroke-dashoffset: 0; } }
+
+/* Big number static — no entrance animation in a pitch deck context */
+.big-stat-wrap { position: relative; }
+
+/* Utility */
+.muted { color: var(--text-3); }
+.tight { letter-spacing: -0.02em; }
+
+
+/* ===== Slide 4 — Positioning Matrix ===== */
+.matrix {
+  position: relative; flex: 1; margin-top: 32px; min-height: 520px;
+}
+.matrix-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ax-y-label { position: absolute; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); line-height: 1.4; }
+.ax-y-label.top { top: 4%; left: 50%; transform: translateX(-50%); text-align: center; }
+.ax-y-label.bottom { bottom: 4%; left: 50%; transform: translateX(-50%); text-align: center; }
+.ax-x-label { position: absolute; top: 50%; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-3); transform: translateY(-50%); }
+.ax-x-label.left { left: 0.5%; }
+.ax-x-label.right { right: 0.5%; }
+.quad-label { position: absolute; right: 4%; top: 8%; text-align: right; }
+.quad-tag { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(139,92,246,0.6); }
+.mark-dot { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 10px; transform: translate(-50%, -50%); z-index: 2; }
+.md-dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--text-4); background: rgba(15,20,36,0.9); flex-shrink: 0; }
+.md-label { font-size: 17px; color: var(--text-2); text-align: center; line-height: 1.3; white-space: nowrap; }
+.md-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--text-4); display: block; }
+.md-halo { position: absolute; width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,0.2), rgba(139,92,246,0.1)); border: 1.5px solid rgba(56,189,248,0.45); transform: translate(-50%,-50%); top: 50%; left: 50%; pointer-events: none; }
+.mark-dot.us { z-index: 3; }
+.us-dot { width: 20px !important; height: 20px !important; background: linear-gradient(135deg, #38BDF8, #8B5CF6) !important; border: none !important; box-shadow: 0 0 20px rgba(56,189,248,0.5); position: relative; z-index: 2; }
+.us-label { font-size: 20px !important; color: var(--text-0) !important; font-weight: 600; }
+.us-label b { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ===== Slide 7 — Pipeline diagram ===== */
+.pipeline { display: flex; align-items: stretch; gap: 0; margin-top: 56px; padding: 0 20px; }
+.pl-node { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 32px 16px; border: 1px solid var(--border); border-radius: 8px; background: transparent; text-align: center; }
+.pl-node.us { border-color: rgba(56,189,248,0.4); background: rgba(56,189,248,0.04); }
+.pl-icon { width: 52px; height: 52px; border-radius: 12px; border: 1px solid var(--border); display: grid; place-items: center; color: var(--text-3); }
+.pl-icon svg { width: 26px; height: 26px; }
+.pl-icon.us { border-color: rgba(56,189,248,0.5); color: var(--cyan); }
+.pl-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.22em; color: var(--text-4); text-transform: uppercase; }
+.pl-h { font-size: 26px; font-weight: 600; color: var(--text-0); letter-spacing: -0.015em; }
+.pl-meta { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+.pl-link { width: 56px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.pl-line { width: 100%; height: 1px; background: linear-gradient(90deg, var(--border), rgba(56,189,248,0.35)); }
+.pl-conv { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 0; border-top: 1px solid var(--border); }
+.pl-conv-pct { font-size: 32px; font-weight: 500; color: var(--text-0); letter-spacing: -0.02em; }
+.pl-conv-pct.grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pl-conv-lbl { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); text-align: center; }
+
+/* ===== Slide 10 — Revenue Mix ===== */
+.rev-wrap { display: grid; grid-template-columns: 360px 1fr; gap: 100px; flex: 1; align-items: center; margin-top: 48px; }
+.rev-donut { width: 320px; height: 320px; }
+.rev-legend { display: flex; flex-direction: column; }
+.rev-row { display: grid; grid-template-columns: 14px 1fr 200px 72px; gap: 22px; align-items: center; padding: 22px 0; border-top: 1px solid var(--border); }
+.rev-row:last-child { border-bottom: 1px solid var(--border); }
+.rev-sw { width: 14px; height: 14px; border-radius: 3px; }
+.rev-name { font-size: 24px; font-weight: 500; color: var(--text-0); letter-spacing: -0.01em; }
+.rev-price { font-size: 20px; color: var(--text-2); }
+.rev-price span { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-4); letter-spacing: 0.1em; }
+.rev-pct { font-size: 28px; font-weight: 500; color: var(--text-0); letter-spacing: -0.02em; text-align: right; }
+
+/* ===== Slide 15 — Ask ===== */
+.ask-allocation { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.ask-cell { border: 1px solid var(--border); border-radius: 6px; padding: 28px; background: transparent; }
+.ask-cell .pct { font-size: 48px; font-weight: 500; letter-spacing: -0.025em; line-height: 1; color: var(--text-0); }
+.ask-cell .pct.grad { color: var(--text-0); background: none; -webkit-background-clip: initial; }
+
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+<!-- ============================ SLIDE 1 — COVER ============================ -->
+<section class="slide cover" data-label="Cover">
+  <div class="frame-top">
+    <div class="mark">
+      <div class="name">AI<b>Bridge</b> Holdings</div>
+    </div>
+    <div>Investor Deck · 2026</div>
+  </div>
+
+  <div class="body">
+    <div class="cover layout" style="display:flex;gap:80px;height:100%;align-items:center;">
+      <div class="left anim">
+        <span class="eyebrow"><span class="ord">—</span> Confidential · 2026 Seed Round</span>
+        <h1 class="deck-title">
+          <span class="b">The world's first</span>
+          <span class="b gradline">AI franchise ecosystem.</span>
+        </h1>
+        <p class="tagline">Helping people, founders &amp; SMBs navigate the AI transition — find their path, build their business, and earn.</p>
+        <dl class="meta">
+          <div>
+            <dt>Round</dt>
+            <dd>Seed · SAFE</dd>
+          </div>
+          <div>
+            <dt>Raising</dt>
+            <dd>$2,000,000</dd>
+          </div>
+          <div>
+            <dt>Cap</dt>
+            <dd>$10–15M</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="right anim anim-2">
+        <div class="orbit">
+          <svg viewBox="0 0 720 720" fill="none">
+            <defs>
+              <radialGradient id="orbBg" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#38BDF8" stop-opacity="0.10"/>
+                <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="360" cy="360" r="300" stroke="rgba(148,163,184,0.10)" stroke-dasharray="3 6"/>
+            <circle cx="360" cy="360" r="220" stroke="rgba(148,163,184,0.08)"/>
+            <circle cx="360" cy="360" r="140" stroke="rgba(148,163,184,0.06)"/>
+            <circle cx="360" cy="360" r="320" fill="url(#orbBg)"/>
+            <!-- connection lines: from center to each node position -->
+            <line class="link" x1="360" y1="360" x2="170" y2="280" stroke="#8B5CF6" stroke-opacity="0.45"/>
+            <line class="link" x1="360" y1="360" x2="360" y2="100" stroke="#34D399" stroke-opacity="0.45"/>
+            <line class="link" x1="360" y1="360" x2="560" y2="180" stroke="#38BDF8" stroke-opacity="0.55"/>
+            <line class="link" x1="360" y1="360" x2="360" y2="620" stroke="#38BDF8" stroke-opacity="0.45"/>
+            <!-- ambient dots -->
+            <circle cx="170" cy="280" r="3" fill="#8B5CF6"/>
+            <circle cx="560" cy="180" r="3" fill="#38BDF8"/>
+            <circle cx="360" cy="100" r="3" fill="#34D399"/>
+            <circle cx="360" cy="620" r="3" fill="#38BDF8"/>
+          </svg>
+
+          <div class="node n1" style="left: 110px; top: 200px;">
+            <div class="iconbox" style="border-color: rgba(139,92,246,0.5);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            </div>
+            <div class="lbl" style="color:#A78BFA;">Founders</div>
+          </div>
+          <div class="node n2" style="left: 300px; top: 30px;">
+            <div class="iconbox" style="border-color: rgba(52,211,153,0.5);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="1.8"><path d="M3 21l5-12 5 7 4-5 4 10"/></svg>
+            </div>
+            <div class="lbl" style="color:#34D399;">Entrepreneurs</div>
+          </div>
+          <div class="node n3" style="left: 500px; top: 110px;">
+            <div class="iconbox" style="border-color: rgba(56,189,248,0.5);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="1.8"><path d="M4 7h10M14 7l-3-3M14 7l-3 3M20 17H10M10 17l3-3M10 17l3 3"/></svg>
+            </div>
+            <div class="lbl" style="color:#38BDF8;">Partners</div>
+          </div>
+          <div class="node n5" style="left: 300px; top: 550px;">
+            <div class="iconbox" style="border-color: rgba(56,189,248,0.5);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="1.8"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>
+            </div>
+            <div class="lbl" style="color:#38BDF8;">Engineers</div>
+          </div>
+
+          <div class="center">
+            <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 8l8-4 8 4-8 4-8-4z"/><path d="M4 12l8 4 8-4M4 16l8 4 8-4"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-bottom">
+    <div>AIBridge Holdings · Investor Deck · 2026</div>
+    <div class="pg">01 / 17</div>
+  </div>
+</section>
+
+
+<!-- ============================ SLIDE 2 — HUMAN CRISIS ============================ -->
+<section class="slide" data-label="The Human Crisis">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>02 · The Human Crisis</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">The Problem · 01</span></div>
+    <div class="cols-2" style="margin-top:48px;align-items:center;">
+      <div class="anim anim-2">
+        <div class="big-stat-wrap">
+          <div class="big-stat" style="font-size: 196px; font-weight: 500; letter-spacing: -0.05em; line-height: 0.92; color: var(--text-0);">300M</div>
+        </div>
+        <div class="lead" style="margin-top: 28px; max-width: 720px;">People are about to lose their jobs to automation — and most have no plan, no path, and no income alternative.</div>
+        <div class="callout" style="margin-top: 56px; max-width: 720px;">Source · <b>Goldman Sachs Research, 2026</b></div>
+      </div>
+
+      <div class="anim anim-3">
+        <div class="tag-mono" style="margin-bottom: 20px;">— what people feel</div>
+        <div class="crisis-anxiety">
+          <div class="chip"><span class="dot-s" style="background:#F472B6;"></span>Anxiety</div>
+          <div class="chip"><span class="dot-s" style="background:#FB923C;"></span>Confusion</div>
+          <div class="chip"><span class="dot-s" style="background:#A78BFA;"></span>Irrelevance</div>
+          <div class="chip"><span class="dot-s" style="background:#38BDF8;"></span>Identity loss</div>
+          <div class="chip"><span class="dot-s" style="background:#34D399;"></span>Burnout</div>
+        </div>
+        <div class="lead grad" style="margin-top:48px;font-weight:600;font-size:30px;max-width: 640px;">This is not a technology problem.<br/>It is a human one.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">02 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 3 — ECONOMIC CRISIS ============================ -->
+<section class="slide" data-label="The Economic Crisis">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>03 · The Economic Crisis</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">The Problem · 02</span></div>
+    <h2 class="title anim anim-2"><span class="grad">$4.4 Trillion</span> in annual AI value — captured by the few who are ready.</h2>
+
+    <div class="cols-3 anim anim-3" style="margin-top: 80px;">
+      <div class="stat-tile">
+        <div>
+          <div class="big grad">300M</div>
+          <div class="cap">Jobs exposed<br/>to automation</div>
+        </div>
+        <div class="tag-mono" style="border-top:1px solid var(--border); padding-top:18px; margin-top: 24px;">— Goldman Sachs</div>
+      </div>
+      <div class="stat-tile">
+        <div>
+          <div class="big grad">$1T</div>
+          <div class="cap">Lost annually<br/>to burnout &amp; anxiety</div>
+        </div>
+        <div class="tag-mono" style="border-top:1px solid var(--border); padding-top:18px; margin-top: 24px;">— WHO / HBS</div>
+      </div>
+      <div class="stat-tile">
+        <div>
+          <div class="big grad">$9T</div>
+          <div class="cap">Global wellness<br/>economy by 2028</div>
+        </div>
+        <div class="tag-mono" style="border-top:1px solid var(--border); padding-top:18px; margin-top: 24px;">— GWI 2024</div>
+      </div>
+    </div>
+
+    <div class="callout anim anim-4" style="margin-top: 36px;">Three converging crises · <b>one infrastructure problem</b></div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">03 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 4 — THE GAP (positioning matrix) ============================ -->
+<section class="slide" data-label="The Gap">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>04 · The Gap</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">The Problem · 03</span></div>
+    <h2 class="title anim anim-2">Nobody is solving <span class="grad">both crises at once.</span></h2>
+
+    <div class="matrix anim anim-3">
+      <!-- Axes -->
+      <div class="ax-y-label top">Personalized<br/>&amp; supported</div>
+      <div class="ax-y-label bottom">Generic</div>
+      <div class="ax-x-label left">Information</div>
+      <div class="ax-x-label right">Income outcome</div>
+
+      <svg class="matrix-svg" viewBox="0 0 1400 620" preserveAspectRatio="none">
+        <!-- Quadrant fill: top-right where we live -->
+        <rect x="700" y="0" width="700" height="310" fill="url(#quadGrad)" opacity="0.45"/>
+        <!-- Axes -->
+        <line x1="40" y1="310" x2="1360" y2="310" stroke="rgba(148,163,184,0.25)" stroke-width="1"/>
+        <line x1="700" y1="20" x2="700" y2="600" stroke="rgba(148,163,184,0.25)" stroke-width="1"/>
+        <!-- Axis ticks -->
+        <line x1="350" y1="305" x2="350" y2="315" stroke="rgba(148,163,184,0.3)"/>
+        <line x1="1050" y1="305" x2="1050" y2="315" stroke="rgba(148,163,184,0.3)"/>
+        <line x1="695" y1="155" x2="705" y2="155" stroke="rgba(148,163,184,0.3)"/>
+        <line x1="695" y1="465" x2="705" y2="465" stroke="rgba(148,163,184,0.3)"/>
+        <!-- Arrow tips on axes -->
+        <path d="M 1355 305 L 1365 310 L 1355 315 Z" fill="rgba(148,163,184,0.4)"/>
+        <path d="M 695 15 L 700 5 L 705 15 Z" fill="rgba(148,163,184,0.4)"/>
+        <defs>
+          <linearGradient id="quadGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#38BDF8" stop-opacity="0"/>
+            <stop offset="1" stop-color="#8B5CF6" stop-opacity="0.45"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- "The Gap" label in target quadrant -->
+      <div class="quad-label">
+        <div class="quad-tag">— The gap</div>
+      </div>
+
+      <!-- Competitor markers -->
+      <div class="mark-dot" style="left: 8%; top: 78%;">
+        <div class="md-dot"></div>
+        <div class="md-label">ChatGPT</div>
+      </div>
+      <div class="mark-dot" style="left: 22%; top: 68%;">
+        <div class="md-dot"></div>
+        <div class="md-label">Online<br/>courses</div>
+      </div>
+      <div class="mark-dot" style="left: 40%; top: 60%;">
+        <div class="md-dot"></div>
+        <div class="md-label">AI tools<br/>&amp; SaaS</div>
+      </div>
+      <div class="mark-dot" style="left: 32%; top: 22%;">
+        <div class="md-dot"></div>
+        <div class="md-label">Coaching<br/>&amp; wellness</div>
+      </div>
+      <div class="mark-dot" style="left: 78%; top: 45%;">
+        <div class="md-dot"></div>
+        <div class="md-label">AI agencies<br/><span class="md-sub">(expensive, generic)</span></div>
+      </div>
+
+      <!-- AIBridge — the gap-filler -->
+      <div class="mark-dot us" style="left: 86%; top: 14%;">
+        <div class="md-halo"></div>
+        <div class="md-dot us-dot"></div>
+        <div class="md-label us-label">AI<b>Bridge</b><br/><span class="md-sub">Personalized · income · supported</span></div>
+      </div>
+    </div>
+
+    <div class="callout anim anim-4" style="margin-top: 24px;">The whitespace upper-right is where the value compounds · <b>and where we built.</b></div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">04 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 5 — THE INSIGHT ============================ -->
+<section class="slide" data-label="The Insight">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>05 · The Insight</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Why now · Why us</span></div>
+
+    <div class="cols-2 anim anim-2" style="margin-top: 56px; gap: 100px;">
+      <div style="display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size: 140px; line-height: 0.7; color: var(--cyan); font-family: 'Inter'; font-weight: 800; opacity: 0.4;">“</div>
+        <p style="font-size: 44px; font-weight: 500; line-height: 1.25; color: var(--text-0); letter-spacing: -0.02em; margin: 0; max-width: 660px;">
+          The AI revolution is not just an economic transition.<br/><span class="grad">It is a human transition.</span>
+        </p>
+        <p class="tag-mono" style="margin-top: 36px;">— Founder thesis · 2026</p>
+      </div>
+
+      <div class="anim anim-3" style="display:flex; flex-direction:column; gap: 20px; align-self: center;">
+        <div class="tag-mono">— Founder journey</div>
+        <div style="display: flex; flex-direction: column; gap: 0;">
+          <!-- Timeline -->
+          <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 18px 0;">
+            <div style="width: 56px; display: flex; justify-content: center;">
+              <div style="width: 14px; height: 14px; border-radius: 50%; background: var(--text-4); margin-top: 8px;"></div>
+            </div>
+            <div>
+              <div style="font-size: 22px; font-weight: 600; color: var(--text-0);">Apple · 15 years</div>
+              <div style="font-size: 17px; color: var(--text-3); margin-top: 4px;">WW Customer Service App Leadership</div>
+            </div>
+          </div>
+          <div style="width: 1px; height: 28px; background: var(--border); margin-left: 27px;"></div>
+
+          <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 18px 0;">
+            <div style="width: 56px; display: flex; justify-content: center;">
+              <div style="width: 14px; height: 14px; border-radius: 50%; background: var(--violet); margin-top: 8px;"></div>
+            </div>
+            <div>
+              <div style="font-size: 22px; font-weight: 600; color: var(--text-0);">Meditation · Mind rewired</div>
+              <div style="font-size: 17px; color: var(--text-3); margin-top: 4px;">Personal transition through human psychology</div>
+            </div>
+          </div>
+          <div style="width: 1px; height: 28px; background: var(--border); margin-left: 27px;"></div>
+
+          <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 18px 0;">
+            <div style="width: 56px; display: flex; justify-content: center;">
+              <div style="width: 14px; height: 14px; border-radius: 50%; background: var(--violet); margin-top: 8px;"></div>
+            </div>
+            <div>
+              <div style="font-size: 22px; font-weight: 600; color: var(--text-0);">GoToRetreats</div>
+              <div style="font-size: 17px; color: var(--text-3); margin-top: 4px;">Marketplace built · psycho-social trust layer</div>
+            </div>
+          </div>
+          <div style="width: 1px; height: 28px; background: var(--border); margin-left: 27px;"></div>
+
+          <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 18px 0;">
+            <div style="width: 56px; display: flex; justify-content: center;">
+              <div style="width: 14px; height: 14px; border-radius: 50%; background: var(--cyan); margin-top: 8px;"></div>
+            </div>
+            <div>
+              <div style="font-size: 22px; font-weight: 600; color: var(--text-0);">GoToStudio</div>
+              <div style="font-size: 17px; color: var(--text-3); margin-top: 4px;">Business infrastructure for partners</div>
+            </div>
+          </div>
+          <div style="width: 1px; height: 28px; background: var(--border); margin-left: 27px;"></div>
+
+          <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 18px 0;">
+            <div style="width: 56px; display: flex; justify-content: center;">
+              <div style="width: 18px; height: 18px; border-radius: 50%; background: var(--grad); margin-top: 6px; box-shadow: 0 0 18px rgba(56,189,248,0.7);"></div>
+            </div>
+            <div>
+              <div style="font-size: 22px; font-weight: 700; color: var(--text-0);"><span class="grad">AIBridge</span> · The mission</div>
+              <div style="font-size: 17px; color: var(--text-3); margin-top: 4px;">The convergence: tech operator + human practitioner</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">05 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 6 — THE SOLUTION ============================ -->
+<section class="slide" data-label="The Solution">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>06 · The Solution</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">What we built</span></div>
+    <h2 class="title anim anim-2">AI transition infrastructure <span class="grad">for humanity.</span></h2>
+    <p class="subtitle anim anim-2">One holding company · three reinforcing brands · one unified mission.</p>
+
+    <div class="cols-3 anim anim-3" style="margin-top: 56px;">
+      <div class="card" style="border-color: rgba(56,189,248,0.35);">
+        <div style="display:flex; align-items:center; gap: 14px; margin-bottom: 18px;">
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: var(--grad); display:grid; place-items:center; color:#fff; font-weight: 800; font-size: 20px;">A</div>
+          <div style="font-size: 26px; font-weight: 700; color: var(--text-0); letter-spacing: -0.015em;">AIBridge</div>
+        </div>
+        <div class="tag-mono" style="color: var(--cyan); margin-bottom: 14px;">AI Franchise Ecosystem</div>
+        <p style="font-size: 20px; line-height: 1.55; color: var(--text-2); margin: 0;">Socrates Engine + 4 archetypes + AI solution marketplace + implementation.</p>
+        <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: var(--text-3); text-transform: uppercase;">Economic transition</div>
+      </div>
+
+      <div class="card" style="border-color: rgba(167,139,250,0.30);">
+        <div style="display:flex; align-items:center; gap: 14px; margin-bottom: 18px;">
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(167,139,250,0.18); border: 1px solid rgba(167,139,250,0.4); display:grid; place-items:center; color: var(--violet-2); font-weight: 800; font-size: 20px;">G</div>
+          <div style="font-size: 26px; font-weight: 700; color: var(--text-0); letter-spacing: -0.015em;">GoToRetreats</div>
+        </div>
+        <div class="tag-mono" style="color: var(--violet-2); margin-bottom: 14px;">Psycho-Social Transition</div>
+        <p style="font-size: 20px; line-height: 1.55; color: var(--text-2); margin: 0;">500+ listings · 1,000+ users. The human trust layer. Top-of-funnel.</p>
+        <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: var(--text-3); text-transform: uppercase;">Human trust</div>
+      </div>
+
+      <div class="card" style="border-color: rgba(52,211,153,0.25);">
+        <div style="display:flex; align-items:center; gap: 14px; margin-bottom: 18px;">
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.4); display:grid; place-items:center; color: var(--green); font-weight: 800; font-size: 20px;">G</div>
+          <div style="font-size: 26px; font-weight: 700; color: var(--text-0); letter-spacing: -0.015em;">GoToStudio</div>
+        </div>
+        <div class="tag-mono" style="color: var(--green); margin-bottom: 14px;">Business Operating Layer</div>
+        <p style="font-size: 20px; line-height: 1.55; color: var(--text-2); margin: 0;">CRM, funnels, automations. The plumbing every partner needs to scale.</p>
+        <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; color: var(--text-3); text-transform: uppercase;">Distribution</div>
+      </div>
+    </div>
+
+    <div class="flywheel anim anim-4">
+      <span class="b">Economic transition</span> <span class="sep">→</span>
+      <span class="b">psycho-social trust</span> <span class="sep">→</span>
+      <span class="b">adoption</span> <span class="sep">→</span>
+      <span class="b">GoToStudio powers both</span>
+    </div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">06 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 7 — SOCRATES ENGINE (pipeline diagram) ============================ -->
+<section class="slide" data-label="The Socrates Engine">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>07 · The Socrates Engine</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Core product · V1 complete</span></div>
+    <h2 class="title anim anim-2">The <span class="grad">Socrates Engine.</span></h2>
+    <p class="subtitle anim anim-2" style="max-width: 1100px;">A 2-minute AI assessment routes every user to their income path.</p>
+
+    <div class="pipeline anim anim-3">
+      <div class="pl-node">
+        <div class="pl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+        </div>
+        <div class="pl-num">01</div>
+        <div class="pl-h">Discover</div>
+        <div class="pl-meta">2-minute assessment</div>
+      </div>
+      <div class="pl-link"><div class="pl-line"></div></div>
+
+      <div class="pl-node">
+        <div class="pl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16M4 12h10M4 19h13"/><circle cx="20" cy="12" r="2" fill="currentColor"/></svg>
+        </div>
+        <div class="pl-num">02</div>
+        <div class="pl-h">Roadmap</div>
+        <div class="pl-meta">AI-personalized plan</div>
+      </div>
+      <div class="pl-link"><div class="pl-line"></div></div>
+
+      <div class="pl-node">
+        <div class="pl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M8 14h4"/></svg>
+        </div>
+        <div class="pl-num">03</div>
+        <div class="pl-h">Activate</div>
+        <div class="pl-meta">GoToStudio deployed</div>
+      </div>
+      <div class="pl-link"><div class="pl-line"></div></div>
+
+      <div class="pl-node us">
+        <div class="pl-icon us">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/></svg>
+        </div>
+        <div class="pl-num">04</div>
+        <div class="pl-h">Earn</div>
+        <div class="pl-meta">First income · days</div>
+      </div>
+    </div>
+
+    <div class="anim anim-4" style="margin-top: 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;">
+      <div class="pl-conv"><span class="pl-conv-pct">100%</span><span class="pl-conv-lbl">In confusion</span></div>
+      <div class="pl-conv"><span class="pl-conv-pct">~90%</span><span class="pl-conv-lbl">Matched to a path</span></div>
+      <div class="pl-conv"><span class="pl-conv-pct">~60%</span><span class="pl-conv-lbl">Storefront live</span></div>
+      <div class="pl-conv"><span class="pl-conv-pct grad">~40%</span><span class="pl-conv-lbl">Earning AI income</span></div>
+    </div>
+
+    <div class="callout" style="margin-top: 28px;">Illustrative target funnel · <b>Days, not months — confusion to income.</b></div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">07 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 8 — TRACTION ============================ -->
+<section class="slide" data-label="Traction">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>08 · Traction</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Traction</span></div>
+    <h2 class="title anim anim-2">The foundation is <span class="grad">already built.</span></h2>
+
+    <div class="cols-4 anim anim-3" style="margin-top: 56px; flex: 0 0 auto; height: 340px;">
+      <div class="stat-tile">
+        <div>
+          <div class="big grad">500+</div>
+          <div class="cap">Retreat listings<br/>on GoToRetreats</div>
+        </div>
+        <div class="tag-mono" style="border-top: 1px solid var(--border); padding-top: 18px;">— Live marketplace</div>
+      </div>
+      <div class="stat-tile">
+        <div>
+          <div class="big grad">1,000+</div>
+          <div class="cap">Users in the<br/>ecosystem</div>
+        </div>
+        <div class="tag-mono" style="border-top: 1px solid var(--border); padding-top: 18px;">— Active accounts</div>
+      </div>
+      <div class="stat-tile">
+        <div>
+          <div class="big grad">V1</div>
+          <div class="cap">Socrates Engine<br/>complete</div>
+        </div>
+        <div class="tag-mono" style="border-top: 1px solid var(--border); padding-top: 18px;">— Shipping</div>
+      </div>
+      <div class="stat-tile">
+        <div>
+          <div class="big grad">15</div>
+          <div class="cap">Years of Apple<br/>experience</div>
+        </div>
+        <div class="tag-mono" style="border-top: 1px solid var(--border); padding-top: 18px;">— Founder DNA</div>
+      </div>
+    </div>
+
+    
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">08 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 9 — MARKET ============================ -->
+<section class="slide" data-label="Market Opportunity">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>09 · Market Opportunity</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Market</span></div>
+    <h2 class="title anim anim-2">Three massive markets <span class="grad">converging.</span></h2>
+
+    <div class="funnel anim anim-3" style="margin-top: 56px;">
+      <div class="row">
+        <div class="tier">TAM</div>
+        <div class="amt">Multi-Trillion</div>
+        <div class="desc">Annual AI economic value + corporate training ($361B+) + global wellness ($9T).</div>
+      </div>
+      <div class="row s2">
+        <div class="tier">SAM</div>
+        <div class="amt"><span class="grad" style="font-size:38px;">~$12B</span></div>
+        <div class="desc">U.S. SMBs, creators, retreat leaders &amp; founders actively seeking AI adoption and income.</div>
+      </div>
+      <div class="row s3">
+        <div class="tier">SOM</div>
+        <div class="amt"><span class="grad" style="font-size:38px;">5–10K customers</span></div>
+        <div class="desc">Paying ecosystem accounts across all three brands within 3 years.</div>
+      </div>
+    </div>
+
+    <p class="anim anim-4" style="font-size: 22px; color: var(--text-2); margin-top: 36px; max-width: 1300px; line-height: 1.5;">AIBridge sits where AI adoption, workforce reinvention, SMB transformation, and psycho-social resilience converge.</p>
+    <div class="callout anim anim-4" style="margin-top: 16px;">McKinsey 2023 · Allied Market Research · GWI 2024 · SBA 2025</div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">09 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 10 — BUSINESS MODEL (revenue donut) ============================ -->
+<section class="slide" data-label="Business Model">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>10 · Business Model</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Revenue model</span></div>
+    <h2 class="title anim anim-2">Four streams. <span class="grad">Compounds over time.</span></h2>
+
+    <div class="rev-wrap anim anim-3">
+      <!-- Donut chart -->
+      <div class="rev-donut">
+        <svg viewBox="0 0 320 320" width="100%" height="100%">
+          <defs>
+            <linearGradient id="dgrad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient>
+            <linearGradient id="dgrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#7C3AED"/></linearGradient>
+            <linearGradient id="dgrad3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34D399"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+            <linearGradient id="dgrad4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FB923C"/><stop offset="1" stop-color="#F97316"/></linearGradient>
+          </defs>
+          <!-- circumference 2πr where r=120 => ~754. Segments: 45% subs=339, 25% mkt=188, 20% impl=151, 10% ent=75 -->
+          <g transform="rotate(-90 160 160)" fill="none" stroke-width="44">
+            <circle cx="160" cy="160" r="120" stroke="#0F1424"/>
+            <circle cx="160" cy="160" r="120" stroke="url(#dgrad1)" stroke-dasharray="339 754" stroke-dashoffset="0"/>
+            <circle cx="160" cy="160" r="120" stroke="url(#dgrad2)" stroke-dasharray="188 754" stroke-dashoffset="-339"/>
+            <circle cx="160" cy="160" r="120" stroke="url(#dgrad3)" stroke-dasharray="151 754" stroke-dashoffset="-527"/>
+            <circle cx="160" cy="160" r="120" stroke="url(#dgrad4)" stroke-dasharray="75 754" stroke-dashoffset="-678"/>
+          </g>
+          <!-- Center label -->
+          <text x="160" y="148" text-anchor="middle" fill="#94A3B8" font-family="JetBrains Mono" font-size="11" letter-spacing="2.5">REVENUE MIX</text>
+          <text x="160" y="180" text-anchor="middle" fill="#F8FAFC" font-family="Inter" font-weight="600" font-size="22" letter-spacing="-0.5">at maturity</text>
+          <text x="160" y="206" text-anchor="middle" fill="#64748B" font-family="JetBrains Mono" font-size="11" letter-spacing="2.5">YEAR 3 TARGET</text>
+        </svg>
+      </div>
+
+      <!-- Legend -->
+      <div class="rev-legend">
+        <div class="rev-row">
+          <div class="rev-sw" style="background: linear-gradient(135deg,#38BDF8,#0EA5E9);"></div>
+          <div class="rev-name">Subscriptions</div>
+          <div class="rev-price">$33–$99<span>/mo</span></div>
+          <div class="rev-pct">45%</div>
+        </div>
+        <div class="rev-row">
+          <div class="rev-sw" style="background: linear-gradient(135deg,#8B5CF6,#7C3AED);"></div>
+          <div class="rev-name">Marketplace</div>
+          <div class="rev-price">3–7%<span> fee</span></div>
+          <div class="rev-pct">25%</div>
+        </div>
+        <div class="rev-row">
+          <div class="rev-sw" style="background: linear-gradient(135deg,#34D399,#10B981);"></div>
+          <div class="rev-name">Implementation</div>
+          <div class="rev-price">$5–15K<span> · per project</span></div>
+          <div class="rev-pct">20%</div>
+        </div>
+        <div class="rev-row">
+          <div class="rev-sw" style="background: linear-gradient(135deg,#FB923C,#F97316);"></div>
+          <div class="rev-name">Enterprise</div>
+          <div class="rev-price">$50–200K<span>/yr</span></div>
+          <div class="rev-pct">10%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout anim anim-4" style="margin-top: 40px;">Low-friction entry · <b>compounds through marketplace, services and enterprise</b></div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">10 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 11 — GO-TO-MARKET ============================ -->
+<section class="slide" data-label="Go-to-Market">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>11 · Go-to-Market</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Go-to-market</span></div>
+    <h2 class="title anim anim-2">Start where <span class="grad">trust already exists.</span></h2>
+    <p class="subtitle anim anim-2">Retreat &amp; founder audiences are ideal early adopters — they are already seeking reinvention.</p>
+
+    <div class="anim anim-3" style="margin-top: 64px; display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr 40px 1fr; gap: 0; align-items: stretch;">
+      <div class="card">
+        <div style="display:flex; align-items:center; gap: 14px; margin-bottom: 20px;"><div class="num-badge">01</div><div class="tag-mono">Attract</div></div>
+        <p style="font-size: 19px; line-height: 1.55; color: var(--text-2); margin:0;">GTR community (1,000+ users), content, podcasts, SEO, partner forums.</p>
+      </div>
+      <div style="display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="card">
+        <div style="display:flex; align-items:center; gap: 14px; margin-bottom: 20px;"><div class="num-badge">02</div><div class="tag-mono">Assess</div></div>
+        <p style="font-size: 19px; line-height: 1.55; color: var(--text-2); margin:0;">Socrates Engine routes every user to their ideal AI path in 2 minutes.</p>
+      </div>
+      <div style="display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="card">
+        <div style="display:flex; align-items:center; gap: 14px; margin-bottom: 20px;"><div class="num-badge">03</div><div class="tag-mono">Convert</div></div>
+        <p style="font-size: 19px; line-height: 1.55; color: var(--text-2); margin:0;">Subscriptions, marketplace transactions, implementation services.</p>
+      </div>
+      <div style="display:flex; align-items:center; justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="card">
+        <div style="display:flex; align-items:center; gap: 14px; margin-bottom: 20px;"><div class="num-badge">04</div><div class="tag-mono">Expand</div></div>
+        <p style="font-size: 19px; line-height: 1.55; color: var(--text-2); margin:0;">Certified partners, agencies, enterprises — 20% lifetime referral loop.</p>
+      </div>
+    </div>
+
+    <div class="callout anim anim-4" style="margin-top: 48px;">GTR is the <b>beachhead</b> · Socrates <b>converts</b> · Partners <b>distribute</b> · The flywheel <b>compounds</b></div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">11 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 12 — COMPETITION ============================ -->
+<section class="slide" data-label="Competitive Landscape">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>12 · Competitive Landscape</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Competition</span></div>
+    <h2 class="title anim anim-2">No one does <span class="grad">what we do.</span></h2>
+
+    <div class="compete anim anim-3" style="margin-top: 48px;">
+      <div class="grid">
+        <div class="cell head">Capability</div>
+        <div class="cell head us" style="background: rgba(56,189,248,0.10);">AIBridge</div>
+        <div class="cell head">Coursera / Udemy</div>
+        <div class="cell head">AI Agencies</div>
+        <div class="cell head">ChatGPT</div>
+
+        <div class="cell feat">AI income in days, not months</div>
+        <div class="cell dot col-us"><span class="dot-yes"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+
+        <div class="cell feat">Personalized pathway engine</div>
+        <div class="cell dot col-us"><span class="dot-yes"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+
+        <div class="cell feat">Done-for-you franchise model</div>
+        <div class="cell dot col-us"><span class="dot-yes"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+
+        <div class="cell feat">Human + psycho-social support</div>
+        <div class="cell dot col-us"><span class="dot-yes"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+
+        <div class="cell feat">Marketplace to sell AI solutions</div>
+        <div class="cell dot col-us"><span class="dot-yes"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+
+        <div class="cell feat">SMB-accessible pricing</div>
+        <div class="cell dot col-us"><span class="dot-yes"></span></div>
+        <div class="cell dot"><span class="dot-yes" style="background: var(--text-2); box-shadow:none;"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+        <div class="cell dot"><span class="dot-no"></span></div>
+
+        <div class="cell feat" style="border-bottom: none;">Business infrastructure included</div>
+        <div class="cell dot col-us" style="border-bottom: none;"><span class="dot-yes"></span></div>
+        <div class="cell dot" style="border-bottom: none;"><span class="dot-no"></span></div>
+        <div class="cell dot" style="border-bottom: none;"><span class="dot-no"></span></div>
+        <div class="cell dot" style="border-bottom: none;"><span class="dot-no"></span></div>
+      </div>
+    </div>
+
+    <div class="callout anim anim-4" style="margin-top: 32px;">The only platform that takes you from <b>AI confusion</b> to <b>income</b> — with human support.</div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">12 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 13 — TEAM ============================ -->
+<section class="slide" data-label="Team">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>13 · Team</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Team</span></div>
+    <h2 class="title anim anim-2">The story is <span class="grad">the advantage.</span></h2>
+
+    <div class="cols-2 anim anim-3" style="margin-top: 56px; gap: 60px;">
+      <div class="card team-card" style="grid-row: span 2;">
+        <div class="role">Founder &amp; CEO</div>
+        <div class="name">A tech operator who became a human practitioner.</div>
+        <ul>
+          <li>20+ years in technology</li>
+          <li>15 years at Apple — WW Customer Service App Leadership</li>
+          <li>Personal transformation through meditation &amp; human psychology</li>
+          <li>Built GoToRetreats &amp; GoToStudio from lived experience</li>
+          <li>Unique intersection: tech operator + human practitioner</li>
+        </ul>
+        <p style="margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 20px; line-height: 1.55; color: var(--text-2);">
+          The founder is not a technologist who discovered AI. <span style="color: var(--text-0); font-weight:500;">They are a human transformation practitioner who built technology</span> — the exact convergence required for this mission.
+        </p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="card team-card">
+          <div class="role">Hiring on funding</div>
+          <ul>
+            <li>AI / Product Lead</li>
+            <li>Growth + SEO Engineer</li>
+            <li>Marketplace Operations</li>
+            <li>Enterprise Partnerships</li>
+          </ul>
+        </div>
+        <div class="card team-card">
+          <div class="role">Board of Advisors</div>
+          <p style="font-size: 20px; line-height: 1.5; color: var(--text-2); margin:14px 0 0;">Advisors across AI, wellness, enterprise governance and capital markets. Details provided upon investor request.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">13 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 14 — FINANCIALS ============================ -->
+<section class="slide" data-label="Financial Model">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>14 · Financial Model</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Financial model</span></div>
+    <h2 class="title anim anim-2"><span class="grad">$0.6M → $8.8M</span> in three years.</h2>
+
+    <div class="chart-wrap anim anim-3" style="margin-top: 56px;">
+      <div>
+        <svg class="chart-svg" viewBox="0 0 700 460" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#38BDF8"/>
+              <stop offset="1" stop-color="#8B5CF6"/>
+            </linearGradient>
+            <linearGradient id="barGradFaint" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#38BDF8" stop-opacity="0.85"/>
+              <stop offset="1" stop-color="#8B5CF6" stop-opacity="0.85"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Grid lines -->
+          <g class="chart-grid">
+            <line x1="80" y1="40"  x2="680" y2="40"/>
+            <line x1="80" y1="130" x2="680" y2="130"/>
+            <line x1="80" y1="220" x2="680" y2="220"/>
+            <line x1="80" y1="310" x2="680" y2="310"/>
+            <line x1="80" y1="400" x2="680" y2="400"/>
+          </g>
+
+          <!-- Y axis labels -->
+          <g class="chart-axis">
+            <text x="60" y="46"  text-anchor="end">$10M</text>
+            <text x="60" y="136" text-anchor="end">$7.5M</text>
+            <text x="60" y="226" text-anchor="end">$5M</text>
+            <text x="60" y="316" text-anchor="end">$2.5M</text>
+            <text x="60" y="406" text-anchor="end">$0</text>
+          </g>
+
+          <!-- Bars: max 10M => 360px tall.  Y1 0.6M=21.6 ; Y2 2.4M=86.4 ; Y3 8.8M=316.8 -->
+          <rect class="chart-bar b1" x="140" y="378" width="120" height="22" rx="6"/>
+          <rect class="chart-bar b2" x="320" y="314" width="120" height="86" rx="6"/>
+          <rect class="chart-bar b3" x="500" y="83"  width="120" height="317" rx="6"/>
+
+          <!-- Bar value labels -->
+          <g class="chart-cap">
+            <text x="200" y="364" text-anchor="middle" font-size="22">$0.6M</text>
+            <text x="380" y="300" text-anchor="middle" font-size="22">$2.4M</text>
+            <text x="560" y="68"  text-anchor="middle" font-size="28" fill="url(#barGrad)">$8.8M</text>
+          </g>
+
+          <!-- X axis labels -->
+          <g class="chart-axis">
+            <text x="200" y="436" text-anchor="middle" letter-spacing="3">YEAR 1</text>
+            <text x="380" y="436" text-anchor="middle" letter-spacing="3">YEAR 2</text>
+            <text x="560" y="436" text-anchor="middle" letter-spacing="3">YEAR 3</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="fin-cols anim anim-4">
+        <div class="fin-row">
+          <div class="yr">YEAR 1</div>
+          <div class="num">$0.6M</div>
+          <div class="det">350 paid accounts EOY · 20 implementation projects · early marketplace revenue</div>
+        </div>
+        <div class="fin-row">
+          <div class="yr">YEAR 2</div>
+          <div class="num">$2.4M</div>
+          <div class="det">1,600 paid accounts EOY · partner ecosystem active · first enterprise pilots</div>
+        </div>
+        <div class="fin-row">
+          <div class="yr">YEAR 3</div>
+          <div class="num grad">$8.8M</div>
+          <div class="det">5,500 paid accounts EOY · mature partner network · enterprise programs live</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 24px;">Illustrative model. Not audited financial guidance.</div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">14 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 15 — THE ASK ============================ -->
+<section class="slide" data-label="The Ask">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>15 · The Ask</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">The ask</span></div>
+
+    <div class="anim anim-2" style="margin-top: 40px; display: flex; align-items: flex-end; gap: 60px;">
+      <div>
+        <div style="font-size: 200px; font-weight: 500; letter-spacing: -0.05em; line-height: 0.92; color: var(--text-0);">$2M</div>
+      </div>
+      <div style="padding-bottom: 28px; border-left: 1px solid var(--border); padding-left: 40px;">
+        <div class="tag-mono" style="color: var(--text-3); letter-spacing: 0.22em;">— Round</div>
+        <div style="font-size: 30px; color: var(--text-0); font-weight: 500; letter-spacing: -0.02em; margin-top: 10px;">Seed · SAFE</div>
+        <div style="font-size: 20px; color: var(--text-2); margin-top: 8px;">$10M–$15M Valuation Cap · 18–24 months runway</div>
+      </div>
+    </div>
+
+    <div class="tag-mono anim anim-3" style="margin-top: 56px; color: var(--text-3);">— Use of funds</div>
+    <div class="ask-allocation anim anim-3" style="margin-top: 18px;">
+      <div class="ask-cell">
+        <div class="pct grad">45%</div>
+        <div class="lbl">Product &amp;<br/>AI Engineering</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+      </div>
+      <div class="ask-cell">
+        <div class="pct grad">25%</div>
+        <div class="lbl">Growth &amp;<br/>Distribution</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 56%;"></div></div>
+      </div>
+      <div class="ask-cell">
+        <div class="pct grad">15%</div>
+        <div class="lbl">Key Hires</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 34%;"></div></div>
+      </div>
+      <div class="ask-cell">
+        <div class="pct grad">10%</div>
+        <div class="lbl">Enterprise<br/>Pilots</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 22%;"></div></div>
+      </div>
+      <div class="ask-cell">
+        <div class="pct grad">5%</div>
+        <div class="lbl">Legal &amp;<br/>Finance</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 12%;"></div></div>
+      </div>
+    </div>
+
+    <div class="callout anim anim-4" style="margin-top: 40px;">Closing Q3 2026 · <b>hello@aibridge.one</b></div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">15 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 16 — SOURCES ============================ -->
+<section class="slide" data-label="Sources &amp; Notes">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>17 · Sources &amp; Notes</div>
+  </div>
+
+  <div class="body">
+    <div class="anim"><span class="eyebrow">Sources &amp; notes</span></div>
+    <h2 class="title anim anim-2" style="font-size: 44px;">Market data &amp; assumptions.</h2>
+
+    <div class="cols-2 anim anim-3" style="margin-top: 48px; gap: 80px;">
+      <div>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 0;">
+          <div style="padding: 18px 0; border-top: 1px solid var(--border);">
+            <div class="tag-mono" style="color: var(--cyan);">McKinsey &amp; Company</div>
+            <div style="font-size: 19px; color: var(--text-1); margin-top: 6px;">$2.6T–$4.4T annual AI economic value potential, 2023</div>
+          </div>
+          <div style="padding: 18px 0; border-top: 1px solid var(--border);">
+            <div class="tag-mono" style="color: var(--cyan);">Goldman Sachs Research</div>
+            <div style="font-size: 19px; color: var(--text-1); margin-top: 6px;">300M jobs exposed to automation, 2023 &amp; 2026</div>
+          </div>
+          <div style="padding: 18px 0; border-top: 1px solid var(--border);">
+            <div class="tag-mono" style="color: var(--cyan);">Global Wellness Institute</div>
+            <div style="font-size: 19px; color: var(--text-1); margin-top: 6px;">Wellness economy projected to $9T by 2028, Monitor 2024</div>
+          </div>
+          <div style="padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+            <div class="tag-mono" style="color: var(--cyan);">WHO / Harvard Business School</div>
+            <div style="font-size: 19px; color: var(--text-1); margin-top: 6px;">$1T annual productivity lost to depression &amp; anxiety</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 0;">
+          <div style="padding: 18px 0; border-top: 1px solid var(--border);">
+            <div class="tag-mono" style="color: var(--violet-2);">U.S. Small Business Administration</div>
+            <div style="font-size: 19px; color: var(--text-1); margin-top: 6px;">36.2M U.S. small businesses; 45.9% of private-sector employment, 2025</div>
+          </div>
+          <div style="padding: 18px 0; border-top: 1px solid var(--border);">
+            <div class="tag-mono" style="color: var(--violet-2);">Allied Market Research</div>
+            <div style="font-size: 19px; color: var(--text-1); margin-top: 6px;">Corporate training market $361.5B (2023) → $805.6B by 2035</div>
+          </div>
+          <div style="padding: 18px 0; border-top: 1px solid var(--border);">
+            <div class="tag-mono" style="color: var(--violet-2);">PitchBook / NVCA</div>
+            <div style="font-size: 19px; color: var(--text-1); margin-top: 6px;">AI captured 65.6% of U.S. VC deal value in 2025 — $222B of $339B</div>
+          </div>
+          <div style="padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+            <div class="tag-mono" style="color: var(--violet-2);">Company Operating Data</div>
+            <div style="font-size: 19px; color: var(--text-1); margin-top: 6px;">500+ listings · 1,000+ users · live marketplace · Socrates V1 complete</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout anim anim-4" style="margin-top: 32px; line-height: 1.6; letter-spacing: 0.08em; text-transform: none;">
+      Financial projections are illustrative and assumption-based. This presentation does not constitute an offer to sell or solicitation to buy securities.
+    </div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">16 / 17</div></div>
+</section>
+
+
+<!-- ============================ SLIDE 17 — CLOSING ============================ -->
+<section class="slide closing" data-label="Closing">
+  <div class="frame-top">
+    <div class="mark"><div class="dot">A</div><div class="name">AI<b>Bridge</b> Holdings</div></div>
+    <div>17 · Closing</div>
+  </div>
+
+  <div class="body">
+    <div class="anim" style="margin: 0 auto;"><span class="eyebrow">The mission</span></div>
+    <h2 class="big anim anim-2" style="margin-top: 56px;">
+      Humanity does not need to <span class="g">fear AI.</span><br/>
+      It needs <span class="g">guidance through the transition.</span>
+    </h2>
+    <p class="sub anim anim-3">AIBridge Holdings is building the infrastructure that takes people from AI anxiety to AI income — with a clear path, human support, and a community.</p>
+    <div class="foot anim anim-4">AIBridge Holdings &nbsp;·&nbsp; Investor Deck &nbsp;·&nbsp; 2026</div>
+  </div>
+
+  <div class="frame-bottom"><div>Investor Deck 2026</div><div class="pg">17 / 17</div></div>
+</section>
+
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+<script>
+// Mark slides active for entrance animation hooks
+(function() {
+  const stage = document.querySelector('deck-stage');
+  function applyActive() {
+    const slides = stage.querySelectorAll('section.slide');
+    slides.forEach((s, i) => {
+      // Use data-active attribute and is-active class to drive animations
+      const isActive = s.matches('[aria-hidden="false"]') || !s.hasAttribute('aria-hidden');
+    });
+    // Simpler: always mark the slide based on current slot
+    const idx = stage.currentIndex !== undefined ? stage.currentIndex : 0;
+    slides.forEach((s,i)=> s.classList.toggle('is-active', i === idx));
+  }
+  stage.addEventListener('slidechange', (e) => {
+    const slides = stage.querySelectorAll('section.slide');
+    slides.forEach((s, i) => {
+      s.classList.toggle('is-active', i === e.detail.index);
+    });
+  });
+  // Initial
+  requestAnimationFrame(() => {
+    const slides = stage.querySelectorAll('section.slide');
+    slides[0]?.classList.add('is-active');
+  });
+})();
+</script>
+
+</body>
+</html>
